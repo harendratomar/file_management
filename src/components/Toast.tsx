@@ -135,10 +135,7 @@ export function Toast({
 
   useEffect(() => {
     if (visible) {
-      // Mark as shown to keep mounted after hide
       setHasShown(true);
-
-      // Animate in
       Animated.parallel([
         Animated.timing(opacity, {
           toValue: 1,
@@ -153,7 +150,6 @@ export function Toast({
         }),
       ]).start();
 
-      // Auto-hide after duration
       const timer = setTimeout(() => {
         Animated.parallel([
           Animated.timing(opacity, {
@@ -175,7 +171,6 @@ export function Toast({
     }
   }, [visible, duration, onHide, opacity, translateY]);
 
-  // Hide completely if never shown
   if (!visible && !hasShown) return null;
 
   const getIcon = () => {

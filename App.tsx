@@ -380,141 +380,143 @@ function AppContent() {
   }, []);
 
   return (
-    <GestureHandlerRootView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <StatusBar style="dark" />
-        <ScrollView
-          style={styles.scrollView}
-          contentContainerStyle={styles.scrollContent}
-          showsVerticalScrollIndicator={false}
-          refreshControl={
-            <RefreshControl
-              refreshing={isRefreshing}
-              onRefresh={handleRefresh}
-              tintColor="#4f46e5"
-              colors={["#4f46e5"]}
-            />
-          }
-        >
-          <View>
-            <View style={styles.headerCard}>
-              <View style={styles.headerRow}>
-                <View style={styles.iconContainer}>
-                  <Ionicons name="cloud-upload" size={28} color="#4f46e5" />
-                </View>
-                <View style={styles.headerTextContainer}>
-                  <Text style={styles.headerTitle}>File Upload</Text>
-                  <Text style={styles.headerSubtitle}>& Management</Text>
-                </View>
-              </View>
-              <Text style={styles.headerDescription}>
-                Upload PNG, JPG, or PDF files (max 5 MB). Fast, secure and easy
-                to manage.
-              </Text>
-            </View>
-
-            <View style={styles.section}>
-              <View style={styles.pickerCard}>
-                <Text style={styles.sectionTitle}>Select File</Text>
-                <FilePickerButton
-                  onFileSelected={handleFileSelected}
-                  disabled={isUploading}
-                />
-                <View style={styles.infoRow}>
-                  <Ionicons
-                    name="information-circle-outline"
-                    size={14}
-                    color="#94a3b8"
-                  />
-                  <Text style={styles.infoText}>
-                    Supported: PNG, JPG, PDF. Max 5 MB.
-                  </Text>
-                </View>
-              </View>
-
-              <View style={styles.storageCard}>
-                <View style={styles.storageRow}>
-                  <View style={styles.storageLeft}>
-                    <View style={styles.storageIcon}>
-                      <Ionicons
-                        name="server-outline"
-                        size={20}
-                        color="#64748b"
-                      />
-                    </View>
-                    <View>
-                      <Text style={styles.storageTitle}>Storage</Text>
-                      <Text style={styles.storageSubtitle}>Files synced</Text>
-                    </View>
-                  </View>
-                  {isUploading && (
-                    <View style={styles.uploadingRow}>
-                      <ActivityIndicator size="small" color="#4f46e5" />
-                      <Text style={styles.uploadingText}>Uploading...</Text>
-                    </View>
-                  )}
-                </View>
-              </View>
-            </View>
-
-            {isUploading && (
-              <View style={styles.uploadingCard}>
-                <View style={styles.uploadingContent}>
-                  <ActivityIndicator size="large" color="#4f46e5" />
-                  <View style={styles.uploadingTextContainer}>
-                    <Text style={styles.uploadingTitle}>
-                      Uploading your file...
-                    </Text>
-                    <Text style={styles.uploadingSubtitle}>
-                      Please wait while we process your file
-                    </Text>
-                  </View>
-                </View>
-              </View>
-            )}
-
+    <ErrorBoundary>
+      <GestureHandlerRootView style={styles.container}>
+        <SafeAreaView style={styles.safeArea}>
+          <StatusBar style="dark" />
+          <ScrollView
+            style={styles.scrollView}
+            contentContainerStyle={styles.scrollContent}
+            showsVerticalScrollIndicator={false}
+            refreshControl={
+              <RefreshControl
+                refreshing={isRefreshing}
+                onRefresh={handleRefresh}
+                tintColor="#4f46e5"
+                colors={["#4f46e5"]}
+              />
+            }
+          >
             <View>
-              {uploadedFile && !isUploading && (
-                <View style={styles.previewCard}>
-                  <View style={styles.previewHeader}>
-                    <Ionicons name="eye-outline" size={20} color="#4f46e5" />
-                    <Text style={styles.previewTitle}>
-                      Uploaded File Preview
+              <View style={styles.headerCard}>
+                <View style={styles.headerRow}>
+                  <View style={styles.iconContainer}>
+                    <Ionicons name="cloud-upload" size={28} color="#4f46e5" />
+                  </View>
+                  <View style={styles.headerTextContainer}>
+                    <Text style={styles.headerTitle}>File Upload</Text>
+                    <Text style={styles.headerSubtitle}>& Management</Text>
+                  </View>
+                </View>
+                <Text style={styles.headerDescription}>
+                  Upload PNG, JPG, or PDF files (max 5 MB). Fast, secure and
+                  easy to manage.
+                </Text>
+              </View>
+
+              <View style={styles.section}>
+                <View style={styles.pickerCard}>
+                  <Text style={styles.sectionTitle}>Select File</Text>
+                  <FilePickerButton
+                    onFileSelected={handleFileSelected}
+                    disabled={isUploading}
+                  />
+                  <View style={styles.infoRow}>
+                    <Ionicons
+                      name="information-circle-outline"
+                      size={14}
+                      color="#94a3b8"
+                    />
+                    <Text style={styles.infoText}>
+                      Supported: PNG, JPG, PDF. Max 5 MB.
                     </Text>
                   </View>
-                  <FilePreview
-                    url={uploadedFile.url}
-                    mimeType={uploadedFile.mimeType}
-                    fileName={uploadedFile.name}
-                  />
+                </View>
+
+                <View style={styles.storageCard}>
+                  <View style={styles.storageRow}>
+                    <View style={styles.storageLeft}>
+                      <View style={styles.storageIcon}>
+                        <Ionicons
+                          name="server-outline"
+                          size={20}
+                          color="#64748b"
+                        />
+                      </View>
+                      <View>
+                        <Text style={styles.storageTitle}>Storage</Text>
+                        <Text style={styles.storageSubtitle}>Files synced</Text>
+                      </View>
+                    </View>
+                    {isUploading && (
+                      <View style={styles.uploadingRow}>
+                        <ActivityIndicator size="small" color="#4f46e5" />
+                        <Text style={styles.uploadingText}>Uploading...</Text>
+                      </View>
+                    )}
+                  </View>
+                </View>
+              </View>
+
+              {isUploading && (
+                <View style={styles.uploadingCard}>
+                  <View style={styles.uploadingContent}>
+                    <ActivityIndicator size="large" color="#4f46e5" />
+                    <View style={styles.uploadingTextContainer}>
+                      <Text style={styles.uploadingTitle}>
+                        Uploading your file...
+                      </Text>
+                      <Text style={styles.uploadingSubtitle}>
+                        Please wait while we process your file
+                      </Text>
+                    </View>
+                  </View>
                 </View>
               )}
 
-              <View style={styles.filesCard}>
-                <View style={styles.filesHeader}>
-                  <Ionicons name="folder-outline" size={20} color="#4f46e5" />
-                  <Text style={styles.filesTitle}>
-                    Previously Uploaded Files
-                  </Text>
+              <View>
+                {uploadedFile && !isUploading && (
+                  <View style={styles.previewCard}>
+                    <View style={styles.previewHeader}>
+                      <Ionicons name="eye-outline" size={20} color="#4f46e5" />
+                      <Text style={styles.previewTitle}>
+                        Uploaded File Preview
+                      </Text>
+                    </View>
+                    <FilePreview
+                      url={uploadedFile.url}
+                      mimeType={uploadedFile.mimeType}
+                      fileName={uploadedFile.name}
+                    />
+                  </View>
+                )}
+
+                <View style={styles.filesCard}>
+                  <View style={styles.filesHeader}>
+                    <Ionicons name="folder-outline" size={20} color="#4f46e5" />
+                    <Text style={styles.filesTitle}>
+                      Previously Uploaded Files
+                    </Text>
+                  </View>
+                  <UploadedFileList
+                    onDelete={handleFileDeleted}
+                    refreshTrigger={refreshTrigger}
+                    onRefreshComplete={handleRefreshComplete}
+                  />
                 </View>
-                <UploadedFileList
-                  onDelete={handleFileDeleted}
-                  refreshTrigger={refreshTrigger}
-                  onRefreshComplete={handleRefreshComplete}
-                />
               </View>
             </View>
-          </View>
-        </ScrollView>
+          </ScrollView>
 
-        <Toast
-          message={toast.message}
-          type={toast.type}
-          visible={toast.visible}
-          onHide={hideToast}
-        />
-      </SafeAreaView>
-    </GestureHandlerRootView>
+          <Toast
+            message={toast.message}
+            type={toast.type}
+            visible={toast.visible}
+            onHide={hideToast}
+          />
+        </SafeAreaView>
+      </GestureHandlerRootView>
+    </ErrorBoundary>
   );
 }
 

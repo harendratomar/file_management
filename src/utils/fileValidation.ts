@@ -15,7 +15,6 @@ export function validateFile(file: {
   size: number;
   mimeType: string | null;
 }): FileValidationResult {
-  // Check file size
   if (file.size > MAX_FILE_SIZE) {
     return {
       isValid: false,
@@ -23,7 +22,6 @@ export function validateFile(file: {
     };
   }
 
-  // Check file type
   if (!file.mimeType || !ALLOWED_TYPES.includes(file.mimeType)) {
     return {
       isValid: false,
